@@ -1,0 +1,25 @@
+{
+  "readme": "README.md",
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "source": {
+    "include": "src",
+    "excludePattern": "(^|\\/|\\\\)vendor"
+  },
+  "opts": {
+    "template": "node_modules/ink-docstrap/template",
+    "encoding": "utf8",
+    "destination": "docs/",
+    "recurse": true,
+    "verbose": false
+  },
+  "templates": {
+    "systemName": "kpr",
+    "collapseSymbols": true,
+    "theme": "flatly",
+    "outputSourceFiles": false,
+    "linenums": true,
+    "syntaxTheme": "dark"
+  }
+}

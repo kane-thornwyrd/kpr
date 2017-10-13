@@ -1,0 +1,39 @@
+{
+  "name": "kpr",
+  "version": "1.0.0",
+  "description": "Kane Package Registry - Because let's have fun !",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "eventStore__url=mongodb://event_store:27017/kpr_test search__index=kpr_test npm run coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kane-thornwyrd/kpr.git"
+  },
+  "keywords": [
+    "package",
+    "repository",
+    "exercice",
+    "forfun"
+  ],
+  "author": "Jean-cédric Thérond <jean.cedric.t@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/kane-thornwyrd/kpr/issues"
+  },
+  "homepage": "https://github.com/kane-thornwyrd/kpr#readme",
+  "devDependencies": {
+    "chai": "4.1.2",
+    "chai-as-promised": "7.1.1",
+    "eslint": "4.8.0",
+    "eslint-config-airbnb": "16.0.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jsx-a11y": "6.0.2",
+    "eslint-plugin-react": "7.4.0",
+    "istanbul": "0.4.5",
+    "jsdoc": "3.5.5",
+    "mocha": "4.0.1",
+    "sinon": "4.0.1",
+    "sinon-chai": "2.14.0"
+  }
+}

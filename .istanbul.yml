@@ -1,0 +1,5 @@
+verbose: false
+instrumentation:
+  root: ./src
+  include-all-sources: true
+  excludes: ['**/__tests__/**', '**/*.test.js']
