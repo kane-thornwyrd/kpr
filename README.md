@@ -1,2 +1,2 @@
-# kpm
-Kane Package Manager - Because let's have fun !
+# kpr
+Kane Package Repository - Because let's have fun !
