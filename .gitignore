@@ -63,5 +63,5 @@ typings/
 .vscode
 *.sublime-project
 *.sublime-workspace
-.data/
+data/
 bin/

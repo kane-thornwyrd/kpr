@@ -1,0 +1,30 @@
+version: '2'
+services:
+
+
+  dispatcher:
+    image: kpr
+    working_dir: /api
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=production
+    links:
+      - db
+      - event_bus
+    depends_on:
+      - db
+      - event_bus
+
+  db:
+    image: mongo:3.4
+    volumes:
+      - ./data/mongodb:/data/db
+    ports:
+      - 27017:27017
+
+  event_bus:
+    image: rabbitmq:3.6-management
+    ports:
+      - 5672:5672
+      - 8080:15672

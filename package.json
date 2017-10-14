@@ -4,7 +4,8 @@
   "description": "Kane Package Registry - Because let's have fun !",
   "main": "lib/index.js",
   "scripts": {
-    "test": "eslint lib/index.js && mocha",
+    "start": "node src/index.js",
+    "test": "eslint src/index.js && mocha",
     "test:cov": "istanbul cover _mocha --report lcovonly -- -R spec",
     "build": "gulp",
     "watch": "gulp watch"
@@ -45,5 +46,8 @@
     "mocha": "4.0.1",
     "sinon": "4.0.1",
     "sinon-chai": "2.14.0"
+  },
+  "dependencies": {
+    "express": "4.16.2"
   }
 }

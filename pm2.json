@@ -1,0 +1,9 @@
+{
+  "apps": [{
+    "name": "kpr",
+    "script": "src/index.js",
+    "env": {
+      "production": true
+    }
+  }]
+}
