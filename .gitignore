@@ -61,5 +61,7 @@ typings/
 .DS_Store
 .idea
 .vscode
+*.sublime-project
+*.sublime-workspace
 .data/
 bin/
