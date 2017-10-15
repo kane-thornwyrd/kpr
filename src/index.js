@@ -8,6 +8,6 @@ app.get('/', (req, res) => {
   console.warn('→→→→→→→→→→→→→→→→→→→→→→→→→→→→→¬ ANSWERED');
 });
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+app.listen(80, () => console.log('Example app listening on port 80!'));
 
 process.on('SIGINT', () => console.log('Goodbye cruel world'));

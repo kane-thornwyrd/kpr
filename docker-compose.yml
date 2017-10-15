@@ -2,13 +2,22 @@ version: '2'
 services:
 
 
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
   dispatcher:
     image: kpr
     working_dir: /api
-    ports:
-      - 3000:3000
     environment:
       - NODE_ENV=production
+      - VIRTUAL_HOST=site.example.com
+      - LETSENCRYPT_HOST=site.example.com
+      - LETSENCRYPT_EMAIL=email@example.com
     links:
       - db
       - event_bus
