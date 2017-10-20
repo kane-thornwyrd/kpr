@@ -1,0 +1,9 @@
+{
+  "apps": [{
+    "name": "kpr-commandHandlers",
+    "script": "index.js",
+    "env": {
+      "production": true
+    }
+  }]
+}

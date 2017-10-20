@@ -1,7 +1,7 @@
 {
   "apps": [{
-    "name": "kpr",
-    "script": "src/index.js",
+    "name": "kpr-queryHandlers",
+    "script": "index.js",
     "env": {
       "production": true
     }

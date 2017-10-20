@@ -45,25 +45,59 @@ services:
       NGINX_PROXY_CONTAINER: "nginx"
 
   dispatcher:
-    image: kpr
-    working_dir: /api
-    restart: unless-stopped
+    image: keymetrics/pm2:8
     volumes:
-      - ${NGINX_FILES_PATH}/certs/${MAIN_DOMAIN}:/api/certs
-      - ./src:/api/src
+      - ${NGINX_FILES_PATH}/certs/${MAIN_DOMAIN}:/certs
+      - ./dispatcher:/api
+    working_dir: /api
+    expose:
+      - "443"
+      - "80"
     environment:
       - NODE_ENV=${NODE_ENV}
       - VIRTUAL_HOST=${MAIN_DOMAIN}
       - LETSENCRYPT_HOST=${MAIN_DOMAIN}
       - LETSENCRYPT_EMAIL=jean.cedric.t@gmail.com
+      - NPM_CONFIG_LOGLEVEL=warn
+    command: ["pm2-docker", "start", "pm2.json"]
     links:
-      - db
       - event_bus
       - nginx-letsencrypt
     depends_on:
-      - db
       - event_bus
       - nginx-letsencrypt
+
+  commandHandlers:
+    image: keymetrics/pm2:8
+    volumes:
+      - ./commandHandlers:/api
+    working_dir: /api
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - NPM_CONFIG_LOGLEVEL=warn
+    command: ["pm2-docker", "start", "pm2.json"]
+    links:
+      - event_bus
+      - db
+    depends_on:
+      - event_bus
+      - db
+
+  queryHandlers:
+    image: keymetrics/pm2:8
+    volumes:
+      - ./queryHandlers:/api
+    working_dir: /api
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - NPM_CONFIG_LOGLEVEL=warn
+    command: ["pm2-docker", "start", "pm2.json"]
+    links:
+      - event_bus
+      - db
+    depends_on:
+      - event_bus
+      - db
 
   db:
     image: mongo:3.4

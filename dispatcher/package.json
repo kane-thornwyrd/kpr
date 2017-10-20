@@ -1,10 +1,9 @@
 {
-  "name": "kpr",
+  "name": "kpr-dispatcher",
   "version": "1.0.0",
-  "description": "Kane Package Registry - Because let's have fun !",
-  "main": "lib/index.js",
+  "description": "The Core Dispatcher",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
     "test": "eslint src/index.js && mocha",
     "test:cov": "istanbul cover _mocha --report lcovonly -- -R spec",
     "build": "gulp",
@@ -48,7 +47,10 @@
     "sinon-chai": "2.14.0"
   },
   "dependencies": {
+    "bunyan": "1.8.12",
+    "confabulous": "1.5.3",
     "express": "4.16.2",
-    "pm2": "2.7.1"
+    "pm2": "2.7.1",
+    "rabbitr": "9.0.0-rc1"
   }
 }

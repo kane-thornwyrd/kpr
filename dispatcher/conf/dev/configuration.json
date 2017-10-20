@@ -1,0 +1,25 @@
+{
+  "server": {
+    "listeningPort": 80
+  },
+  "logging": {
+    "logLevel": "DEBUG",
+    "name": "kpr",
+    "streams": [
+      {
+        "type": "rotating-file",
+        "path": "logs/debug.log",
+        "period": "10000ms",
+        "count": 1,
+        "level": "debug"
+      },
+      {
+        "type": "rotating-file",
+        "path": "logs/error.log",
+        "period": "1w",
+        "count": 7,
+        "level": "error"
+      }
+    ]
+  }
+}
