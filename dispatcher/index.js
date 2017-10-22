@@ -1,8 +1,8 @@
 const fs = require('fs');
 const https = require('https');
 const express = require('express');
-const conf = require('./libs/configuration');
-const logging = require('./libs/logging');
+const conf = require('../libs/configuration');
+const logging = require('../libs/logging');
 
 
 const START = new Date();
@@ -72,6 +72,8 @@ async function Main() {
   process.on('uncaughtException', (err) => {
     log.error('Critical Error: uncaught exception failed', err, err.stack);
   });
+
+
   return app;
 }
 

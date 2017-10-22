@@ -47,10 +47,10 @@
     "sinon-chai": "2.14.0"
   },
   "dependencies": {
+    "amqplib": "0.5.1",
     "bunyan": "1.8.12",
     "confabulous": "1.5.3",
     "express": "4.16.2",
-    "pm2": "2.7.1",
-    "rabbitr": "9.0.0-rc1"
+    "pm2": "2.7.1"
   }
 }
