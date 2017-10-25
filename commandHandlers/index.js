@@ -1,25 +1,72 @@
-var amqp = require('amqp');
+var amqp = require('amqplib');
+const conf = require('./core/libs/configuration');
+const logging = require('./core/libs/logging');
+
+/**
+ * console.error any error passed to it and exit the process.
+ *
+ * @param      {error}  err     The error
+ */
+function criticalError(err) {
+  console.error('Critical Error: uncaught exception failed', err, err.stack);
+  process.exit(1);
+}
+
+process.on('uncaughtException', criticalError);
+
+const START = new Date();
 
 
-var connection = amqp.createConnection({ url: 'amqp://event_bus:5672' });
-
-// add this for better debuging
-connection.on('error', function(e) {
-  console.log("Error from amqp: ", e);
+/**
+ * Generate a promise to check if the amqp server is available.
+ * Timeout after 60 seconds.
+ *
+ * @return     {Promise}  is the amqp server available ?
+ */
+const amqpReady = ({amqp: { amqpUrl }}) => new Promise(async (res, rej) => {
+  let out = false;
+  let connection;
+  while (!out) {
+    try {
+      connection = await amqp.connect(amqpUrl);
+    } catch (err) {
+      // boo antipattern caused by a badly implemented library…
+      console.debug(err);
+    }
+    if (connection) {
+      out = true;
+      return res(connection);
+    }
+    if (new Date() - START >= 6000) { // 60s×1000
+      out = true;
+      return rej(new Error('AMQP Server not availables'));
+    }
+  }
+  return false;
 });
 
-// Wait for connection to become established.
-connection.on('ready', function () {
-  console.log('CONNECTION READY')
-  // Use the default 'amq.topic' exchange
-  connection.queue('my-queue', function (q) {
-      // Catch all messages
-      q.bind('#');
+async function Main() {
+  const configuration = await conf({ env: process.env });
+  const log = await logging(configuration.logging.commandHandlers);
 
-      // Receive messages
-      q.subscribe(function (message) {
-        // Print messages to stdout
-        console.log(message);
-      });
-  });
-});
+  const amqpConn = await amqpReady(configuration);
+  process.once('SIGINT', function() { amqpConn.close(); });
+
+  const channel = await amqpConn.createChannel();
+  const queueReady = await channel.assertQueue('hello', {durable: false});
+  if(queueReady) {
+    const consumer = channel.consume(
+      'hello',
+      (msg) =>
+        log.debug(`Received "${msg.content.toString()}"`),
+      {noAck: true},
+    )
+    log.debug('Ready to listen!');
+  }
+
+
+}
+
+
+Main()
+  .catch(criticalError);

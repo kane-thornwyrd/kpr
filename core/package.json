@@ -1,0 +1,15 @@
+{
+  "name": "kpr-core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jean-cédric Thérond <jean.cedric.t@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "bunyan": "1.8.12",
+    "confabulous": "1.5.3"
+  }
+}

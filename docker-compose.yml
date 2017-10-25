@@ -49,6 +49,9 @@ services:
     volumes:
       - ${NGINX_FILES_PATH}/certs/${MAIN_DOMAIN}:/certs
       - ./dispatcher:/api
+      - ./core:/api/core
+      - ./conf:/api/conf
+      - ./logs:/api/logs
     working_dir: /api
     expose:
       - "443"
@@ -71,6 +74,9 @@ services:
     image: keymetrics/pm2:8
     volumes:
       - ./commandHandlers:/api
+      - ./core:/api/core
+      - ./conf:/api/conf
+      - ./logs:/api/logs
     working_dir: /api
     environment:
       - NODE_ENV=${NODE_ENV}
@@ -87,6 +93,9 @@ services:
 #   image: keymetrics/pm2:8
 #   volumes:
 #     - ./queryHandlers:/api
+#     - ./core:/api/core
+#     - ./conf:/api/conf
+#     - ./logs:/api/logs
 #   working_dir: /api
 #   environment:
 #     - NODE_ENV=${NODE_ENV}

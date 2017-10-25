@@ -1,9 +1,22 @@
 const fs = require('fs');
 const https = require('https');
 const express = require('express');
-const conf = require('../libs/configuration');
-const logging = require('../libs/logging');
+const amqp = require('amqplib');
+const conf = require('./core/libs/configuration');
+const logging = require('./core/libs/logging');
 
+
+/**
+ * console.error any error passed to it and exit the process.
+ *
+ * @param      {error}  err     The error
+ */
+function criticalError(err) {
+  console.error('Critical Error: uncaught exception failed', err, err.stack);
+  process.exit(1);
+}
+
+process.on('uncaughtException', criticalError);
 
 const START = new Date();
 
@@ -36,11 +49,11 @@ const certsExists = () => new Promise((res, rej) => {
 /**
  * Main application runtime.
  *
- * @return     {Express}  the express server.
+ * @return     {Number} 0.
  */
 async function Main() {
   const configuration = await conf({ env: process.env });
-  const log = await logging(configuration.logging);
+  const log = await logging(configuration.logging.dispatcher);
   let doCertsExists = false;
   try {
     doCertsExists = await certsExists().catch(e => { log.error(e); return false; });
@@ -69,12 +82,28 @@ async function Main() {
     return res.end('<h1>Hello, Secure World!</h1>');
   });
 
-  process.on('uncaughtException', (err) => {
-    log.error('Critical Error: uncaught exception failed', err, err.stack);
+  amqp.connect('amqp://event_bus').then(conn => {
+    return conn.createChannel().then(ch => {
+      const q = 'hello';
+      const msg = 'Hello World!';
+
+      const ok = ch.assertQueue(q, { durable: false });
+
+      return ok.then(() => {
+        // NB: `sentToQueue` and `publish` both return a boolean
+        // indicating whether it's OK to send again straight away, or
+        // (when `false`) that you should wait for the event `'drain'`
+        // to fire before writing again. We're just doing the one write,
+        // so we'll ignore it.
+        ch.sendToQueue(q, Buffer.from(msg));
+        console.log(" [x] Sent '%s'", msg);
+      });
+    });
   });
 
 
-  return app;
+  return 0;
 }
 
-Main();
+Main()
+  .catch(criticalError);

@@ -48,8 +48,6 @@
   },
   "dependencies": {
     "amqplib": "0.5.1",
-    "bunyan": "1.8.12",
-    "confabulous": "1.5.3",
     "express": "4.16.2",
     "pm2": "2.7.1"
   }

@@ -1,0 +1,50 @@
+{
+  "server": {
+    "listeningPort": 80
+  },
+  "amqp": {
+    "amqpUrl": "amqp://event_bus"
+  },
+  "logging": {
+    "dispatcher": {
+      "name": "kpr-dispatcher",
+      "logLevel": "DEBUG",
+      "streams": [
+        {
+          "type": "rotating-file",
+          "path": "logs/debug.log",
+          "period": "10000ms",
+          "count": 1,
+          "level": "debug"
+        },
+        {
+          "type": "rotating-file",
+          "path": "logs/error.log",
+          "period": "1w",
+          "count": 7,
+          "level": "error"
+        }
+      ]
+    },
+    "commandHandlers": {
+      "name": "kpr-commandHandlers",
+      "logLevel": "DEBUG",
+      "streams": [
+        {
+          "type": "rotating-file",
+          "path": "logs/debug.log",
+          "period": "10000ms",
+          "count": 1,
+          "level": "debug"
+        },
+        {
+          "type": "rotating-file",
+          "path": "logs/error.log",
+          "period": "1w",
+          "count": 7,
+          "level": "error"
+        }
+      ]
+    }
+  }
+}
