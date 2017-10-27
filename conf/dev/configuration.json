@@ -1,12 +1,14 @@
 {
-  "server": {
-    "listeningPort": 80
-  },
-  "amqp": {
-    "amqpUrl": "amqp://event_bus"
-  },
-  "logging": {
-    "dispatcher": {
+  "dispatcher": {
+    "server": {
+      "listeningPort": 80
+    },
+    "amqp": {
+      "url": "amqp://event_bus",
+      "timeout": 60000,
+      "heartbeat": 10
+    },
+    "logging": {
       "name": "kpr-dispatcher",
       "logLevel": "DEBUG",
       "streams": [
@@ -25,8 +27,15 @@
           "level": "error"
         }
       ]
+    }
+  },
+  "commandHandlers": {
+    "amqp": {
+      "url": "amqp://event_bus",
+      "timeout": 60000,
+      "heartbeat": 10
     },
-    "commandHandlers": {
+    "logging": {
       "name": "kpr-commandHandlers",
       "logLevel": "DEBUG",
       "streams": [

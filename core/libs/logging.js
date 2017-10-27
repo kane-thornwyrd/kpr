@@ -3,7 +3,7 @@ const bunyan = require('bunyan');
 let instance;
 
 
-module.exports = conf => new Promise((res) => {
+module.exports = ({ logging: conf }) => new Promise((res) => {
   if (!instance) {
     const streams = conf.streams.concat([{
       stream: process.stdout,

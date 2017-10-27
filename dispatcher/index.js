@@ -1,7 +1,7 @@
 const fs = require('fs');
 const https = require('https');
 const express = require('express');
-const amqp = require('amqplib');
+const amqp = require('./core/libs/amqp');
 const conf = require('./core/libs/configuration');
 const logging = require('./core/libs/logging');
 
@@ -11,8 +11,8 @@ const logging = require('./core/libs/logging');
  *
  * @param      {error}  err     The error
  */
-function criticalError(err) {
-  console.error('Critical Error: uncaught exception failed', err, err.stack);
+function criticalError(error) {
+  console.error('Critical Error: uncaught exception failed', error, error.stack);
   process.exit(1);
 }
 
@@ -52,17 +52,19 @@ const certsExists = () => new Promise((res, rej) => {
  * @return     {Number} 0.
  */
 async function Main() {
-  const configuration = await conf({ env: process.env });
-  const log = await logging(configuration.logging.dispatcher);
+  const configuration = (await conf({ env: process.env })).dispatcher;
+  const log = await logging(configuration);
+  const amqpInstance = await amqp(configuration);
+
   let doCertsExists = false;
   try {
     doCertsExists = await certsExists().catch(e => { log.error(e); return false; });
-  } catch (e) {
-    log.error(e);
+  } catch (error) {
+    log.error(error);
   }
   log.debug({ time: START }, 'Application launch');
-  process.on('uncaughtException', (err) => {
-    log.fatal(err);
+  process.on('uncaughtException', (error) => {
+    log.fatal(error);
     process.exit(1);
   });
 
@@ -82,24 +84,9 @@ async function Main() {
     return res.end('<h1>Hello, Secure World!</h1>');
   });
 
-  amqp.connect('amqp://event_bus').then(conn => {
-    return conn.createChannel().then(ch => {
-      const q = 'hello';
-      const msg = 'Hello World!';
-
-      const ok = ch.assertQueue(q, { durable: false });
-
-      return ok.then(() => {
-        // NB: `sentToQueue` and `publish` both return a boolean
-        // indicating whether it's OK to send again straight away, or
-        // (when `false`) that you should wait for the event `'drain'`
-        // to fire before writing again. We're just doing the one write,
-        // so we'll ignore it.
-        ch.sendToQueue(q, Buffer.from(msg));
-        console.log(" [x] Sent '%s'", msg);
-      });
-    });
-  });
+  const amqpChannel = await amqpInstance.connection();
+  (await amqpInstance.assertQueue({ channel: amqpChannel, name: 'hello' }))
+    .publish({ message: 'HELLO WORLD !' });
 
 
   return 0;
