@@ -73,10 +73,8 @@ async function Main() {
       key: fs.readFileSync('certs/key.pem'),
       cert: fs.readFileSync('certs/cert.pem'),
     }, app).listen(443);
-    log.debug('listening on port 443!');
   } else {
-    app.listen(configuration.server.listeningPort, () =>
-      log.debug(`listening on port ${configuration.server.listeningPort}!`));
+    app.listen(configuration.server.listeningPort);
   }
 
   app.get('/', (req, res) => {

@@ -89,24 +89,24 @@ services:
       - event_bus
       - db
 
-# queryHandlers:
-#   image: keymetrics/pm2:8
-#   volumes:
-#     - ./queryHandlers:/api
-#     - ./core:/api/core
-#     - ./conf:/api/conf
-#     - ./logs:/api/logs
-#   working_dir: /api
-#   environment:
-#     - NODE_ENV=${NODE_ENV}
-#     - NPM_CONFIG_LOGLEVEL=warn
-#   command: ["pm2-docker", "start", "pm2.json"]
-#   links:
-#     - event_bus
-#     - db
-#   depends_on:
-#     - event_bus
-#     - db
+  queryHandlers:
+    image: keymetrics/pm2:8
+    volumes:
+      - ./queryHandlers:/api
+      - ./core:/api/core
+      - ./conf:/api/conf
+      - ./logs:/api/logs
+    working_dir: /api
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - NPM_CONFIG_LOGLEVEL=warn
+    command: ["pm2-docker", "start", "pm2.json"]
+    links:
+      - event_bus
+      - db
+    depends_on:
+      - event_bus
+      - db
 
 
   db:

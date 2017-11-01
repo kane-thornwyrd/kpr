@@ -14,12 +14,11 @@ function criticalError(err) {
 
 process.on('uncaughtException', criticalError);
 
-const START = new Date();
-
-
 async function Main() {
+  const START = new Date();
   const configuration = (await conf({ env: process.env })).commandHandlers;
   const log = await logging(configuration);
+  log.debug({ topic: 'commandHandlers', time: START }, 'Start');
   const amqpInstance = await amqp(configuration);
 
   const amqpChannel = await amqpInstance.connection();
