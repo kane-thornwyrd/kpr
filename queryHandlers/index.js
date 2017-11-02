@@ -16,7 +16,7 @@ process.on('uncaughtException', criticalError);
 
 async function Main() {
   const START = new Date();
-  const configuration = (await conf({ env: process.env })).commandHandlers;
+  const configuration = (await conf({ env: process.env })).queryHandlers;
   const log = await logging(configuration);
   log.debug({ topic: 'queryHandlers', time: START }, 'Start');
   const amqpInstance = await amqp(configuration);

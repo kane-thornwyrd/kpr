@@ -5,10 +5,12 @@ const logging = require('./core/libs/logging');
 /**
  * console.error any error passed to it and exit the process.
  *
- * @param      {error}  err     The error
+ * @param      {Error}  error     The error
+ * @return {null} nothing
  */
-function criticalError(err) {
-  console.error('Critical Error: uncaught exception failed', err, err.stack);
+function criticalError(error) {
+  /* eslint no-console:0 */
+  console.error('Critical Error: uncaught exception failed', error, error.stack);
   process.exit(1);
 }
 

@@ -67,6 +67,8 @@ services:
       - event_bus
       - nginx-letsencrypt
     depends_on:
+      - nginx
+      - nginx-gen
       - event_bus
       - nginx-letsencrypt
 

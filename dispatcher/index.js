@@ -4,14 +4,19 @@ const express = require('express');
 const amqp = require('./core/libs/amqp');
 const conf = require('./core/libs/configuration');
 const logging = require('./core/libs/logging');
+const httpsRedirect = require('./core/middlewares/httpsRedirect');
+const helmet = require('helmet');
+const compression = require('compression');
 
 
 /**
  * console.error any error passed to it and exit the process.
  *
- * @param      {error}  err     The error
+ * @param      {Error}  error     The error
+ * @return {null} nothing
  */
 function criticalError(error) {
+  /* eslint no-console:0 */
   console.error('Critical Error: uncaught exception failed', error, error.stack);
   process.exit(1);
 }
@@ -62,20 +67,22 @@ async function Main() {
   } catch (error) {
     log.error(error);
   }
-  log.debug({ time: START }, 'Application launch');
-  process.on('uncaughtException', (error) => {
-    log.fatal(error);
-    process.exit(1);
-  });
+  log.debug({ topic: 'dispatcher', time: START }, 'Start');
+
+  const weAreLive = () => log.debug(`✔ Dispatcher online, listening on ${configuration.server.listeningPort}`);
 
   if (doCertsExists) {
     https.createServer({
       key: fs.readFileSync('certs/key.pem'),
       cert: fs.readFileSync('certs/cert.pem'),
-    }, app).listen(443);
+    }, app).listen(configuration.server.listeningPort, weAreLive);
   } else {
-    app.listen(configuration.server.listeningPort);
+    app.listen(configuration.server.listeningPort, weAreLive);
   }
+
+  app.use(compression());
+  app.use(httpsRedirect({ https: { disable: !doCertsExists } }));
+  app.use(helmet());
 
   app.get('/', (req, res) => {
     res.header('Content-type', 'text/html');
