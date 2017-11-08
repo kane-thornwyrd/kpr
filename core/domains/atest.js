@@ -3,8 +3,8 @@ const uploadModule = async (req, res) => {
   res.send('uploadModule');
 }
 
-const listModules = async (req, res) => {
-  console.log('↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑');
+const listModules = async (stream) => {
+  console.log('okfoefkeokaoekfoakfeoekkoaf', stream);
 }
 
 const downloadModules = async (req, res) => {

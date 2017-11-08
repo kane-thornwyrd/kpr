@@ -8,6 +8,8 @@ const httpsRedirect = require('./core/middlewares/httpsRedirect');
 const helmet = require('helmet');
 const compression = require('compression');
 
+const domains = require('./core/domains');
+
 
 /**
  * console.error any error passed to it and exit the process.
@@ -83,6 +85,8 @@ async function Main() {
   app.use(compression());
   app.use(httpsRedirect({ https: { disable: !doCertsExists } }));
   app.use(helmet());
+
+  domains({ app });
 
   app.get('/', (req, res) => {
     res.header('Content-type', 'text/html');
