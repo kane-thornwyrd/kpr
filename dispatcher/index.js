@@ -19,7 +19,7 @@ const domains = require('./core/domains');
  */
 function criticalError(error) {
   /* eslint no-console:0 */
-  console.error('Critical Error: uncaught exception failed', error, error.stack);
+  console.error('Critical Error: ', error, error.stack);
   process.exit(1);
 }
 

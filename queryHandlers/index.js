@@ -8,7 +8,7 @@ const logging = require('./core/libs/logging');
  * @param      {error}  err     The error
  */
 function criticalError(err) {
-  console.error('Critical Error: uncaught exception failed', err, err.stack);
+  console.error('Critical Error: ', err, err.stack);
   process.exit(1);
 }
 

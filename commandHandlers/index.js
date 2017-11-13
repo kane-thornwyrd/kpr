@@ -10,7 +10,7 @@ const logging = require('./core/libs/logging');
  */
 function criticalError(error) {
   /* eslint no-console:0 */
-  console.error('Critical Error: uncaught exception failed', error, error.stack);
+  console.error('Critical Error: ', error, error.stack);
   process.exit(1);
 }
 
