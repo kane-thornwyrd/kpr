@@ -94,7 +94,7 @@ publish:
 	make clean-lib
 	KPR_ENV=production make build-dist
 	make test
-	./node_modules/.bin/lerna publish --force-publish=* --exact --skip-temp-tag
+	./node_modules/.bin/lerna publish
 	make clean
 
 

@@ -3,10 +3,30 @@
   "packages": [
     "packages/*"
   ],
-  "version": "independent",
-  "command": {
+  "changelog": {
+    "repo": "kane-thornwyrd/kpr",
+    "labels": {
+      "PR: Spec Compliancy": ":eyeglasses: Spec Compliancy",
+      "PR: Breaking Change": ":boom: Breaking Change",
+      "PR: New Feature": ":rocket: New Feature",
+      "PR: Bug Fix": ":bug: Bug Fix",
+      "PR: Polish": ":nail_care: Polish",
+      "PR: Docs": ":memo: Documentation",
+      "PR: Internal": ":house: Internal"
+    }
+  },
+  "cacheDir": ".changelog",
+  "commands": {
     "init": {
       "exact": true
+    },
+    "publish": {
+      "conventionalCommits": true,
+      "ignore": [
+        "*.md",
+        "test/**"
+      ]
     }
-  }
+  },
+  "version": "independent"
 }
