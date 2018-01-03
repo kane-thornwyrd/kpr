@@ -50,10 +50,6 @@ help:
 build: clean
 	make clean-lib
 	./node_modules/.bin/gulp build
-ifneq ("$(KPR_ENV)", "cov")
-	make build-standalone
-	make build-preset-env-standalone
-endif
 
 watch: clean
 	make clean-lib
@@ -105,7 +101,7 @@ publish:
 
 bootstrap:
 	make clean-all
-	npm
+	npm i
 	./node_modules/.bin/lerna bootstrap
 	make build
 
