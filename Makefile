@@ -94,13 +94,13 @@ publish:
 	make clean-lib
 	KPR_ENV=production make build-dist
 	make test
-	./node_modules/.bin/lerna publish
+	npm run semantic-release
 	make clean
 
 
 bootstrap:
 	make clean-all
-	npm
+	npm i
 	./node_modules/.bin/lerna bootstrap
 	make build
 

@@ -55,6 +55,7 @@
     "istanbul": "0.4.5",
     "jsdoc": "3.5.5",
     "lerna": "2.5.1",
+    "lerna-semantic-release": "9.1.0",
     "merge-stream": "1.0.1",
     "mocha": "4.1.0",
     "path": "0.12.7",
