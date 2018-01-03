@@ -1,14 +1,33 @@
-sudo: false
+git:
+  depth: 10
 language: node_js
+sudo: false
 cache:
   directories:
+    - ~/.npm
     - node_modules
 notifications:
   email: false
 node_js:
-  - "5"
-before_install: .travis/before_install.sh
-after_success: .travis/after_success.sh
-script: npm run lint && npm test
-git:
-depth: 1
+  - '9'
+  - '8'
+  - '6'
+  - '4'
+before_install:
+  - .travis/before_install.sh
+script:
+  - 'if [ "$JOB" = "test" ]; then make test-ci; fi'
+  - 'if [ "$JOB" = "lint" ]; then make lint; fi'
+after_success:
+  - .travis/after_success.sh
+  # - npm install -g travis-deploy-once@4
+  # - travis-deploy-once "npm run semantic-release"
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+
+matrix:
+  fast_finish: true
+  include:
+    - node_js: "node"
+      env: JOB=lint

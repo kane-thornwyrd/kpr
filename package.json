@@ -1,14 +1,21 @@
 {
   "name": "kpr",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Kane Package Registry - Because let's have fun !",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "commit": "git-cz",
+    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
+    "postinstall": "lerna bootstrap",
+    "precommit": "npm run lint",
+    "commitmsg": "validate-commit-msg",
+    "prepush": "npm run lint && npm run test",
+    "test": "lerna run test",
+    "lint": "eslint packages"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kane-thornwyrd/kpr.git"
+    "url": "https://github.com/kane-thornwyrd/kpr.git"
   },
   "keywords": [
     "package",
@@ -26,18 +33,25 @@
   "devDependencies": {
     "chai": "4.1.2",
     "chai-as-promised": "7.1.1",
+    "commitizen": "2.9.6",
+    "cz-lerna-changelog": "1.2.1",
     "eslint": "4.8.0",
     "eslint-config-airbnb": "16.0.0",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-jsx-a11y": "6.0.2",
     "eslint-plugin-react": "7.4.0",
+    "husky": "0.14.3",
     "istanbul": "0.4.5",
     "jsdoc": "3.5.5",
+    "lerna": "2.5.1",
     "mocha": "4.0.1",
+    "semantic-release": "11.0.2",
     "sinon": "4.0.1",
     "sinon-chai": "2.14.0",
-    "cz-lerna-changelog": "^1.2.1",
-    "lerna": "2.5.1",
+    "validate-commit-msg": "2.14.0"
+  },
+  "release": {
+    "branch": "master"
   },
   "config": {
     "commitizen": {
