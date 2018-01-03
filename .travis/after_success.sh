@@ -7,5 +7,6 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 fi
 
 if [[ $TRAVIS_BRANCH == 'master' ]]; then
+  echo "We are releasing !"
   npm run semantic-release
 fi
