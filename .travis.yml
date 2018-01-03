@@ -15,9 +15,7 @@ node_js:
   - '4'
 before_install:
   - .travis/before_install.sh
-script:
-  - 'if [ "$JOB" = "test" ]; then make test-ci; fi'
-  - 'if [ "$JOB" = "lint" ]; then make lint; fi'
+script: npm run lint && npm test
 after_success:
   - .travis/after_success.sh
   # - npm install -g travis-deploy-once@4
