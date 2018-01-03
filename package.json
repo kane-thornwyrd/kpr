@@ -1,10 +1,10 @@
 {
   "name": "kpr",
+  "private": true,
   "version": "1.0.0",
   "description": "Kane Package Registry - Because let's have fun !",
-  "main": "lib/index.js",
   "scripts": {
-    "test": "eventStore__url=mongodb://event_store:27017/kpr_test search__index=kpr_test npm run coverage"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "package",
+    "fun",
     "repository",
     "exercice",
     "forfun"
@@ -34,6 +35,13 @@
     "jsdoc": "3.5.5",
     "mocha": "4.0.1",
     "sinon": "4.0.1",
-    "sinon-chai": "2.14.0"
+    "sinon-chai": "2.14.0",
+    "cz-lerna-changelog": "^1.2.1",
+    "lerna": "2.5.1",
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
   }
 }
