@@ -51,6 +51,7 @@ build: clean
 	make clean-lib
 	./node_modules/.bin/gulp build
 
+
 watch: clean
 	make clean-lib
 	KPR_ENV=development ./node_modules/.bin/gulp watch
@@ -99,7 +100,7 @@ publish:
 
 bootstrap:
 	make clean-all
-	npm i
+	npm
 	./node_modules/.bin/lerna bootstrap
 	make build
 
