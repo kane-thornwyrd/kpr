@@ -32,17 +32,12 @@
   "overrides": [
     {
       "files": [
-        "packages/*/src/**/*.js"
-      ],
-      "rules": {
-        "no-undefined-identifier": "error"
-      }
-    },
-    {
-      "files": [
         "packages/*/test/**/*.js",
         "test/**/*.js"
       ],
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
+      },
       "env": {
         "mocha": true
       }
