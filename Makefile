@@ -91,8 +91,6 @@ test-ci-coverage:
 publish:
 	git pull --rebase
 	make clean-lib
-	rm -rf packages/babel-runtime/helpers
-	rm -rf packages/babel-runtime/core-js
 	KPR_ENV=production make build-dist
 	make test
 	./node_modules/.bin/lerna publish --force-publish=* --exact --skip-temp-tag
