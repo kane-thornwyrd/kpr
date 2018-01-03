@@ -1,5 +1,14 @@
-.PHONY: help
+# Inspired by https://github.com/babel/babel/blob/f5ef928586f592aa2d8bb60120ae58833d17e0db/Makefile
+MAKEFLAGS = -j1
 .DEFAULT_GOAL := help
+
+export NODE_ENV = test
+export FORCE_COLOR = true
+
+SOURCES = packages
+
+.PHONY: help build build-dist watch lint fix clean test-clean test-only test test-ci publish bootstrap
+
 
 usualCommands	:= setup, test, lint, test-unit, test-unit-watch
 
@@ -36,4 +45,99 @@ help:
 	  } \
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
+
+## Build the targets
+build: clean
+	make clean-lib
+	./node_modules/.bin/gulp build
+ifneq ("$(KPR_ENV)", "cov")
+	make build-standalone
+	make build-preset-env-standalone
+endif
+
+watch: clean
+	make clean-lib
+	KPR_ENV=development ./node_modules/.bin/gulp watch
+
+lint:
+	./node_modules/.bin/eslint scripts $(SOURCES) *.js --format=codeframe
+
+fix:
+	./node_modules/.bin/eslint scripts $(SOURCES) *.js --format=codeframe --fix
+
+
+clean: test-clean
+	rm -rf coverage
+	rm -rf packages/*/npm-debug*
+
+test-clean:
+	$(foreach source, $(SOURCES), \
+		$(call clean-source-test, $(source)))
+
+test-only:
+	./scripts/test.sh
+	make test-clean
+
+test: lint test-only
+
+
+test-ci:
+	make bootstrap
+	make test-only
+
+test-ci-coverage: SHELL:=/bin/bash
+test-ci-coverage:
+	KPR_ENV=cov make bootstrap
+	./scripts/test-cov.sh
+	bash <(curl -s https://codecov.io/bash) -f coverage/coverage-final.json
+
+
+publish:
+	git pull --rebase
+	make clean-lib
+	rm -rf packages/babel-runtime/helpers
+	rm -rf packages/babel-runtime/core-js
+	KPR_ENV=production make build-dist
+	make test
+	./node_modules/.bin/lerna publish --force-publish=* --exact --skip-temp-tag
+	make clean
+
+
+bootstrap:
+	make clean-all
+	npm
+	./node_modules/.bin/lerna bootstrap
+	make build
+
+
+clean-lib:
+	$(foreach source, $(SOURCES), \
+		$(call clean-source-lib, $(source)))
+
+clean-all:
+	rm -rf node_modules
+	rm -rf package-lock.json
+
+	$(foreach source, $(SOURCES), \
+		$(call clean-source-all, $(source)))
+
+	make clean
+
+define clean-source-lib
+	rm -rf $(1)/*/lib
+
+endef
+
+define clean-source-test
+	rm -rf $(1)/*/test/tmp
+	rm -rf $(1)/*/test-fixtures.json
+
+endef
+
+define clean-source-all
+	rm -rf $(1)/*/lib
+	rm -rf $(1)/*/node_modules
+	rm -rf $(1)/*/package-lock.json
+
+endef
 

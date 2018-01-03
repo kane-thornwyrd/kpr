@@ -11,13 +11,17 @@ notifications:
 node_js:
   - '9'
   - '8'
+env:
+  global:
+    - JOB=test
+
 before_install:
   - .travis/before_install.sh
-script: npm run lint && npm test
+script:
+  - 'if [ "$JOB" = "test" ]; then make test-ci; fi'
+  - 'if [ "$JOB" = "lint" ]; then make lint; fi'
 after_success:
   - .travis/after_success.sh
-  # - npm install -g travis-deploy-once@4
-  # - travis-deploy-once "npm run semantic-release"
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/

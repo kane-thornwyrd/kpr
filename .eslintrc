@@ -27,6 +27,33 @@
     "valid-jsdoc": "warn"
   },
   "env": {
-    "mocha": true
-  }
+    "node": true
+  },
+  "overrides": [
+    {
+      "files": [
+        "packages/*/src/**/*.js"
+      ],
+      "rules": {
+        "no-undefined-identifier": "error"
+      }
+    },
+    {
+      "files": [
+        "packages/*/test/**/*.js",
+        "test/**/*.js"
+      ],
+      "env": {
+        "mocha": true
+      }
+    },
+    {
+      "files": [
+        "Gulpfile.js"
+      ],
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
+      }
+    }
+  ]
 }
