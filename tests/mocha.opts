@@ -1,1 +1,5 @@
---reporter dot --ui tdd --timeout 10000 --compilers js:@babel/register
+--recursive
+--require ./tests/includes
+--ui tdd
+--timeout 10000
+-r @babel/register
