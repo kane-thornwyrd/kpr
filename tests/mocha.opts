@@ -1,3 +1,4 @@
 --require ./tests/includes
 --recursive
+--forbid-only
 ./packages/**/*.test.js
