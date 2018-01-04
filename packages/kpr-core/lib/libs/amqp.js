@@ -1,5 +1,3 @@
-'use strict';
-
 const amqp = require('amqplib');
 const logging = require('./logging');
 

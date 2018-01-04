@@ -1,5 +1,3 @@
-'use strict';
-
 const { loaders, processors: { json, envToCamelCaseProp } } = require('confabulous');
 const Confabulous = require('confabulous');
 
