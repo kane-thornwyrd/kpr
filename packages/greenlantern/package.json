@@ -1,6 +1,6 @@
 {
   "name": "greenlantern",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "Just to have a basic thing green in the CICD",
   "main": "lib/index.js",
   "repository": "https://github.com/kane-thornwyrd/kpr/tree/master/packages/greenlantern",
