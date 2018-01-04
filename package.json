@@ -34,6 +34,7 @@
     "babel-plugin-syntax-async-functions": "6.13.0",
     "babel-plugin-syntax-object-rest-spread": "6.13.0",
     "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-inline-environment-variables": "0.2.0",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-plugin-transform-react-jsx": "6.24.1",
     "babel-preset-env": "1.6.1",
@@ -71,6 +72,7 @@
     "semantic-release": "11.0.2",
     "sinon": "4.0.1",
     "sinon-chai": "2.14.0",
+    "tap": "11.0.1",
     "through2": "2.0.3",
     "validate-commit-msg": "2.14.0"
   },
@@ -81,8 +83,5 @@
     "commitizen": {
       "path": "./node_modules/cz-lerna-changelog"
     }
-  },
-  "dependencies": {
-    "babel-plugin-transform-inline-environment-variables": "0.2.0"
   }
 }
