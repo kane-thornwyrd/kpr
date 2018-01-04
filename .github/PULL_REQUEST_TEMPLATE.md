@@ -7,13 +7,13 @@ For issue references: Add a comma-separated list of a [closing word](https://hel
 
 | Q                        | A <!--(Can use an emoji 👍) -->
 | ------------------------ | ---
-| Fixed Issues?            | `Fixes #1, Fixes #2` <!-- remove the (`) quotes to link the issues -->
+| Fixed Issues?            |
 | Patch: Bug Fix?          |
 | Major: Breaking Change?  |
 | Minor: New Feature?      |
 | Tests Added + Pass?      | Yes
-| Documentation PR         | <!-- If so, add `[skip ci]` to your commit message to skip CI -->
+| Documentation PR         |
 | Any Dependency Changes?  |
-| License                  | MIT
+| License                  | GPL-3.0
 
 <!-- Describe your changes below in as much detail as possible -->
