@@ -25,9 +25,3 @@ after_success:
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
-
-matrix:
-  fast_finish: true
-  include:
-    - node_js: "node"
-      env: JOB=lint
