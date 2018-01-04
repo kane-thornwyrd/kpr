@@ -92,7 +92,7 @@ test-ci-coverage:
 publish:
 	git pull --rebase
 	make clean-lib
-	KPR_ENV=production make build-dist
+	KPR_ENV=production make build
 	make test
 	npm run semantic-release
 	make clean
