@@ -1,0 +1,19 @@
+{
+  "name": "kpr-dispatcher",
+  "version": "1.0.0",
+  "description": "Entrypoint to the kpr server, used to dispatch queries and commands",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kane-thornwyrd/kpr/tree/master/packages/kpr-dispatcher"
+  },
+  "keywords": [
+    "kpr",
+    "package",
+    "repository",
+    "dispatcher",
+    "cqrs"
+  ],
+  "author": "Jean-cédric Thérond <jean.cedric.t@gmail.com>",
+  "license": "GPL-3.0"
+}
