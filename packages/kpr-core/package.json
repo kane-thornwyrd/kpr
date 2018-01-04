@@ -1,0 +1,28 @@
+{
+  "name": "kpr-core",
+  "version": "1.0.0",
+  "description": "The core functions of kpr",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kane-thornwyrd/kpr/tree/master/packages/kpr-core"
+  },
+  "bugs": {
+    "url": "https://github.com/kane-thornwyrd/kpr/issues"
+  },
+  "keywords": [
+    "kpr",
+    "core",
+    "corelib",
+    "package",
+    "repository",
+    "registry"
+  ],
+  "author": "Jean-cédric Thérond <jean.cedric.t@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "bunyan": "^1.8.12",
+    "confabulous": "^1.5.3",
+    "require-dir": "^0.3.2"
+  }
+}

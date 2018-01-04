@@ -51,9 +51,10 @@ build: clean
 	make clean-lib
 	./node_modules/.bin/gulp build
 
-
+## Watch, clean, lint and devbuild
 watch: clean
 	make clean-lib
+	make lint
 	KPR_ENV=development ./node_modules/.bin/gulp watch
 
 lint:
