@@ -57,6 +57,10 @@ watch: clean
 	make lint
 	KPR_ENV=development ./node_modules/.bin/gulp watch
 
+## continously run the tests
+watch-test:
+	 @watch --color make test-only
+
 lint:
 	./node_modules/.bin/eslint scripts $(SOURCES) *.js --format=codeframe
 
