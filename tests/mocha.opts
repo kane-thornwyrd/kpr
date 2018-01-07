@@ -1,4 +1,5 @@
---require ./tests/includes
 --recursive
---forbid-only
-./packages/**/*.test.js
+--require ./tests/includes
+--ui tdd
+--timeout 10000
+--compilers js:babel-register
