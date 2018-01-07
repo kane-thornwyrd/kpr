@@ -2,4 +2,4 @@
 --require ./tests/includes
 --ui tdd
 --timeout 10000
--r @babel/register
+--compilers js:babel-register

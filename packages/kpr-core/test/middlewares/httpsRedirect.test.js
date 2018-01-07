@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const sandbox = sinon.sandbox.create();
 
-const httpsRedirect = require('../src/middlewares/httpsRedirect');
+const httpsRedirect = require('../../src/middlewares/httpsRedirect');
 
 describe('httpsRedirect', () => {
   let stubNext;

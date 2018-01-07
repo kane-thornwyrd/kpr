@@ -13,24 +13,16 @@ module.exports = configuration => new Promise(async masterRes => {
    * @return     {Promise}  is the amqp server available ?
    */
   const amqpReady = ({ amqp: { url, timeout, heartbeat } }, start) => new Promise(async (res, rej) => {
-    let out = false;
     let connection;
-    while (!out) {
+    while (true) {
       try {
         connection = await amqp.connect(url, { heartbeat }); // eslint-disable-line no-await-in-loop
       } catch (err) {
         log.debug({ topic: 'IDC' }, err);
       }
-      if (connection) {
-        out = true;
-        return res(connection);
-      }
-      if (new Date() - start >= timeout) {
-        out = true;
-        return rej(new Error('AMQP Server not availables'));
-      }
+      if (connection) { return res(connection); }
+      if (new Date() - start >= timeout) { return rej(new Error('AMQP Server not availables')); }
     }
-    return false;
   });
 
   let amqpConn;
@@ -62,14 +54,14 @@ module.exports = configuration => new Promise(async masterRes => {
                 log.error(error, {
                   message,
                   messageParsed,
-                  topic: LOG_TOPIC
+                  topic: LOG_TOPIC,
                 });
                 channel.ack(message);
               } else {
                 log.warn(error, {
                   message,
                   messageParsed,
-                  topic: LOG_TOPIC
+                  topic: LOG_TOPIC,
                 }, 'Message failed retrying…');
                 channel.nack(message);
               }
@@ -82,8 +74,8 @@ module.exports = configuration => new Promise(async masterRes => {
           const LOG_TOPIC = 'AMQP Publish';
           log.debug({ topic: LOG_TOPIC, message }, 'Message Sent');
           return connectionChannel.publish(exchange, name, Buffer.from(JSON.stringify(message), options));
-        }
+        },
       };
-    }
+    },
   });
 });
