@@ -1,0 +1,86 @@
+{
+  "dispatcher": {
+    "server": {
+      "listeningPort": 8080
+    },
+    "amqp": {
+      "url": "127.0.0.1",
+      "timeout": 60000,
+      "heartbeat": 10
+    },
+    "logging": {
+      "name": "kpr-dispatcher",
+      "logLevel": "DEBUG",
+      "streams": [
+        {
+          "type": "rotating-file",
+          "path": "logs/debug.log",
+          "period": "10000ms",
+          "count": 1,
+          "level": "debug"
+        },
+        {
+          "type": "rotating-file",
+          "path": "logs/error.log",
+          "period": "1w",
+          "count": 7,
+          "level": "error"
+        }
+      ]
+    }
+  },
+  "commandHandlers": {
+    "amqp": {
+      "url": "127.0.0.1",
+      "timeout": 60000,
+      "heartbeat": 10
+    },
+    "logging": {
+      "name": "kpr-commandHandlers",
+      "logLevel": "DEBUG",
+      "streams": [
+        {
+          "type": "rotating-file",
+          "path": "logs/debug.log",
+          "period": "10000ms",
+          "count": 1,
+          "level": "debug"
+        },
+        {
+          "type": "rotating-file",
+          "path": "logs/error.log",
+          "period": "1w",
+          "count": 7,
+          "level": "error"
+        }
+      ]
+    }
+  },
+  "queryHandlers": {
+    "amqp": {
+      "url": "127.0.0.1",
+      "timeout": 60000,
+      "heartbeat": 10
+    },
+    "logging": {
+      "name": "kpr-queryHandlers",
+      "logLevel": "DEBUG",
+      "streams": [
+        {
+          "type": "rotating-file",
+          "path": "logs/debug.log",
+          "period": "10000ms",
+          "count": 1,
+          "level": "debug"
+        },
+        {
+          "type": "rotating-file",
+          "path": "logs/error.log",
+          "period": "1w",
+          "count": 7,
+          "level": "error"
+        }
+      ]
+    }
+  }
+}

@@ -7,6 +7,10 @@
     "type": "git",
     "url": "https://github.com/kane-thornwyrd/kpr/tree/master/packages/kpr-dispatcher"
   },
+  "scripts": {
+    "start": "node lib/index.js",
+    "stop": "pm2 kill"
+  },
   "keywords": [
     "kpr",
     "package",
@@ -23,6 +27,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "helmet": "^3.9.0",
+    "kpr-core": "^1.0.0",
     "pm2": "^2.9.1"
   }
 }

@@ -13,13 +13,13 @@ const logging = require('./logging');
 const amqpReady = ({ amqp: { url, timeout, heartbeat }, log }, start) =>
   async () => {
     let connection;
-    while (true) {
+    while (new Date() - start < timeout) {
       try {
         connection = await amqp.connect(url, { heartbeat }); // eslint-disable-line no-await-in-loop
       } catch (err) { log.debug({ topic: 'IDC' }, err); }
       if (connection) { return connection; }
-      if (new Date() - start >= timeout) { throw new Error('AMQP Server not availables'); }
     }
+    throw new Error('AMQP Server not availables');
   };
 
 const Module = configuration => new Promise(async (masterRes) => {

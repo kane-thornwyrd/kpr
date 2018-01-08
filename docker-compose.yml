@@ -1,0 +1,8 @@
+version: '2'
+services:
+
+  event_bus:
+    image: rabbitmq:3.5.7-management
+    ports:
+      - "5672:5672"
+      - "8081:15672"

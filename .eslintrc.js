@@ -1,5 +1,14 @@
-{
+const path = require('path');
+
+module.exports = {
   "extends": "airbnb-base",
+  settings: {
+    'import/resolver': {
+      'eslint-import-resolver-lerna': {
+        packages: path.resolve(__dirname, 'packages')
+      }
+    }
+  },
   "rules": {
     "arrow-body-style": ["off"],
     "arrow-parens": ["off"],

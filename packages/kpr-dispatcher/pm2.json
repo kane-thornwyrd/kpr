@@ -1,0 +1,9 @@
+{
+  "apps": [{
+    "name": "kpr-dispatcher",
+    "script": "lib/index.js",
+    "env": {
+      "production": true
+    }
+  }]
+}
